@@ -1,0 +1,114 @@
+.tableContainer {
+  width: 100%;
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+  margin-top: var(--space-8);
+  animation: fadeInUp var(--duration-base) var(--ease) both;
+  animation-delay: 100ms;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.table th {
+  background: var(--color-bg);
+  color: var(--color-text-soft);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  padding: var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.table td {
+  padding: var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text);
+  transition: background var(--duration-fast) var(--ease);
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.table tr:hover td {
+  background: rgba(59, 130, 246, 0.03);
+}
+
+.clickableRow {
+  cursor: pointer;
+}
+
+.courseName {
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.professor {
+  color: var(--color-text-soft);
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.statusActive {
+  background: var(--color-up-bg);
+  color: var(--color-up-fg);
+}
+
+.statusClosed {
+  background: var(--color-down-bg);
+  color: var(--color-down-fg);
+}
+
+.grade {
+  font-family: monospace;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-text-soft);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.title::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 1.125rem;
+  background: var(--color-primary);
+  border-radius: var(--radius-sm);
+}
+
+@media (max-width: 640px) {
+  .table th, .table td {
+    padding: var(--space-3) var(--space-4);
+  }
+}

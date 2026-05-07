@@ -10,6 +10,7 @@
   box-shadow: var(--shadow-md);
   overflow: hidden;
   isolation: isolate;
+  cursor: pointer;
   transition:
     transform   var(--duration-base) var(--ease),
     box-shadow  var(--duration-base) var(--ease),

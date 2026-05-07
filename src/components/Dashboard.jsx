@@ -15,12 +15,13 @@ import styles from '@/styles/Dashboard.module.css'
  * por la guía ("Performance CSR: evitar render innecesario con memo").
  *
  * @param {{
- *   metrics:   ReadonlyArray<import('../App').Metric>,
- *   title?:    string,
- *   children?: import('react').ReactNode
+ *   metrics:       ReadonlyArray<import('../App').Metric>,
+ *   title?:        string,
+ *   onMetricClick: (metric: import('../App').Metric) => void,
+ *   children?:     import('react').ReactNode
  * }} props
  */
-const Dashboard = ({ metrics, title, children }) => (
+const Dashboard = ({ metrics, title, onMetricClick, children }) => (
   <section
     className={styles.dashboard}
     aria-labelledby={title ? 'dashboard-title' : undefined}
@@ -41,6 +42,7 @@ const Dashboard = ({ metrics, title, children }) => (
           trend={m.trend}
           icon={m.icon}
           progress={m.progress}
+          onClick={() => onMetricClick(m)}
         />
       ))}
     </div>
@@ -61,8 +63,9 @@ Dashboard.propTypes = {
       progress: PropTypes.number,
     }),
   ).isRequired,
-  title:    PropTypes.string,
-  children: PropTypes.node,
+  title:         PropTypes.string,
+  onMetricClick: PropTypes.func.isRequired,
+  children:      PropTypes.node,
 }
 
 const MemoDashboard = memo(Dashboard)

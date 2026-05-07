@@ -31,18 +31,22 @@ const TREND_COLOR = Object.freeze({
  *   unit:      string,
  *   trend:     'up' | 'down' | 'stable',
  *   icon?:     string,
- *   progress?: number
+ *   progress?: number,
+ *   onClick?:  () => void
  * }} props
  */
-const MetricCard = ({ label, value, unit, trend, icon, progress }) => {
+const MetricCard = ({ label, value, unit, trend, icon, progress, onClick }) => {
   const color = TREND_COLOR[trend] ?? '#cbd5e1'
   const pct   = Math.max(0, Math.min(100, progress ?? 0))
 
   return (
     <article
       className={styles.card}
-      role="listitem"
-      aria-label={`${label}: ${value} ${unit}, tendencia ${trend}`}
+      role="button"
+      tabIndex={0}
+      aria-label={`${label}: ${value} ${unit}, tendencia ${trend}. Click para ver más detalles.`}
+      onClick={onClick}
+      onKeyDown={(e) => e.key === 'Enter' && onClick?.()}
     >
       {icon && (
         <span className={styles.cardIcon} aria-hidden="true">{icon}</span>
@@ -88,6 +92,7 @@ MetricCard.propTypes = {
   trend:    PropTypes.oneOf(['up', 'down', 'stable']).isRequired,
   icon:     PropTypes.string,
   progress: PropTypes.number,
+  onClick:  PropTypes.func,
 }
 
 const MemoMetricCard = memo(MetricCard)
