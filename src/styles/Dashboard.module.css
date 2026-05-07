@@ -1,19 +1,42 @@
 .dashboard {
   width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 1.5rem 1rem;
+  padding: var(--space-2) 0;
 }
 
 .title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
   font-size: 1.125rem;
   font-weight: 600;
-  color: #334155;
-  margin-bottom: 1.5rem;
+  color: var(--color-text-soft);
+  margin-bottom: var(--space-6);
+  letter-spacing: -0.01em;
+}
+
+/* Barra accent brand a la izquierda del título */
+.title::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 1.125rem;
+  background: var(--color-primary);
+  border-radius: var(--radius-sm);
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 1.25rem;
+  gap: var(--space-5);
+}
+
+@media (min-width: 1024px) {
+  .grid { gap: var(--space-6); }
+}
+
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
 }

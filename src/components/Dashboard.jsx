@@ -39,6 +39,8 @@ const Dashboard = ({ metrics, title, children }) => (
           value={m.value}
           unit={m.unit}
           trend={m.trend}
+          icon={m.icon}
+          progress={m.progress}
         />
       ))}
     </div>
@@ -50,11 +52,13 @@ const Dashboard = ({ metrics, title, children }) => (
 Dashboard.propTypes = {
   metrics: PropTypes.arrayOf(
     PropTypes.shape({
-      id:    PropTypes.number.isRequired,
-      label: PropTypes.string.isRequired,
-      value: PropTypes.number.isRequired,
-      unit:  PropTypes.string.isRequired,
-      trend: PropTypes.oneOf(['up', 'down', 'stable']).isRequired,
+      id:       PropTypes.number.isRequired,
+      label:    PropTypes.string.isRequired,
+      value:    PropTypes.number.isRequired,
+      unit:     PropTypes.string.isRequired,
+      trend:    PropTypes.oneOf(['up', 'down', 'stable']).isRequired,
+      icon:     PropTypes.string,
+      progress: PropTypes.number,
     }),
   ).isRequired,
   title:    PropTypes.string,

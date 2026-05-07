@@ -17,21 +17,26 @@ const TREND_COLOR = Object.freeze({
  * MetricCard — tarjeta individual de una métrica académica.
  *
  * - Estilos base con CSS Modules (`styles.card`, etc.).
- * - **Inline style** únicamente para el valor dinámico de color
- *   (`background: TREND_COLOR[trend]`), conforme a la guía
- *   ("inline styles solo para valores dinámicos").
+ * - **Inline style** únicamente para los valores dinámicos:
+ *     · color del indicador (`background: TREND_COLOR[trend]`)
+ *     · ancho de la barra de progreso (`width: progress%`)
+ *     · color de la barra (también dinámico por trend)
+ *   conforme a la guía PDF ("inline styles solo para valores dinámicos").
  * - Renderiza `<StatusBadge trend={trend} />` para preservar la jerarquía
  *   App → Dashboard → MetricCard → StatusBadge.
  *
  * @param {{
- *   label: string,
- *   value: number,
- *   unit:  string,
- *   trend: 'up' | 'down' | 'stable'
+ *   label:     string,
+ *   value:     number,
+ *   unit:      string,
+ *   trend:     'up' | 'down' | 'stable',
+ *   icon?:     string,
+ *   progress?: number
  * }} props
  */
-const MetricCard = ({ label, value, unit, trend }) => {
-  const indicatorColor = TREND_COLOR[trend] ?? '#cbd5e1'
+const MetricCard = ({ label, value, unit, trend, icon, progress }) => {
+  const color = TREND_COLOR[trend] ?? '#cbd5e1'
+  const pct   = Math.max(0, Math.min(100, progress ?? 0))
 
   return (
     <article
@@ -39,6 +44,10 @@ const MetricCard = ({ label, value, unit, trend }) => {
       role="listitem"
       aria-label={`${label}: ${value} ${unit}, tendencia ${trend}`}
     >
+      {icon && (
+        <span className={styles.cardIcon} aria-hidden="true">{icon}</span>
+      )}
+
       <h3 className={styles.label}>{label}</h3>
 
       <div className={styles.valueBox}>
@@ -46,10 +55,26 @@ const MetricCard = ({ label, value, unit, trend }) => {
         <span className={styles.unit}>{unit}</span>
         <span
           className={styles.indicator}
-          style={{ background: indicatorColor }}
+          style={{ background: color }}
           aria-hidden="true"
         />
       </div>
+
+      {progress !== undefined && (
+        <div
+          className={styles.progressTrack}
+          role="progressbar"
+          aria-valuenow={pct}
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-label={`Progreso de ${label}`}
+        >
+          <span
+            className={styles.progressFill}
+            style={{ width: `${pct}%`, background: color }}
+          />
+        </div>
+      )}
 
       <StatusBadge trend={trend} />
     </article>
@@ -57,10 +82,12 @@ const MetricCard = ({ label, value, unit, trend }) => {
 }
 
 MetricCard.propTypes = {
-  label: PropTypes.string.isRequired,
-  value: PropTypes.number.isRequired,
-  unit:  PropTypes.string.isRequired,
-  trend: PropTypes.oneOf(['up', 'down', 'stable']).isRequired,
+  label:    PropTypes.string.isRequired,
+  value:    PropTypes.number.isRequired,
+  unit:     PropTypes.string.isRequired,
+  trend:    PropTypes.oneOf(['up', 'down', 'stable']).isRequired,
+  icon:     PropTypes.string,
+  progress: PropTypes.number,
 }
 
 const MemoMetricCard = memo(MetricCard)
