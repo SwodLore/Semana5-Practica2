@@ -4,6 +4,15 @@
 **Universidad:** UNCP — Facultad de Ingeniería de Sistemas
 **Tema:** HTML5, CSS3, React, Flexbox/Grid, Diseño Responsivo, CSR y SEO
 
+## Integrantes
+
+| N° | Apellidos y Nombres |
+|----|---------------------|
+| 1  | Poves Martinez, Alessandro Piero |
+| 2  | Sulluchuco Vilcapoma, Anyelo Roberto |
+| 3  | Egoavil Huaman, Cristhian Rudolf |
+| 4  | Huaynate Curiñaupa, Angel Mitch |
+
 ---
 
 ## Descripción del Proyecto
